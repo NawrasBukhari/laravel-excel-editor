@@ -7,8 +7,10 @@
     <meta name="csrf_token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
+
     <script>
         let recentFilesJson = @json($recentFiles);
+        let environment = '{{ app()->environment() }}';
     </script>
 
     {{--  Styles  --}}

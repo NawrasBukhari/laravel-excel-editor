@@ -1,6 +1,5 @@
 <?php
 
-use Flasher\Prime\Notification\Envelope;
 
 /***
  * function memory_file_path is a json file which will be used to save the recently opened files
@@ -41,19 +40,6 @@ function save_memory_file($data): void
     file_put_contents(memory_file_path(), json_encode($data));
 }
 
-function get_memory_file($key): string
-{
-    $memory_file = memory_file();
-    return $memory_file[$key] ?? '';
-}
-
-function set_memory_file($key, $value): void
-{
-    $memory_file = memory_file();
-    $memory_file[$key] = $value;
-    save_memory_file($memory_file);
-}
-
 
 function divide(): string
 {
@@ -74,19 +60,3 @@ if (!function_exists('excel_path')) {
     }
 }
 
-function init_application_data(): array
-{
-    $url = 'https://raw.githubusercontent.com/NawrasBukhari/laravel-excel-editor/main/application.json';
-    return json_decode(file_get_contents($url), true, flags: JSON_PRETTY_PRINT);
-}
-
-function check_for_update()
-{
-    $current_version = init_application_data()['version'];
-
-    if (config('app.version') !== $current_version) {
-        return flash()->addWarning('Update available. Please update the application.');
-    } else {
-        return flash()->addSuccess('You are using the latest version of the application.');
-    }
-}

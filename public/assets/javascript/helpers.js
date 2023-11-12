@@ -182,6 +182,12 @@ class Helpers {
                 return 'fa-file';
         }
     }
+
+    static log(environment){
+        if (environment === 'production') {
+            console.log = () => {};
+        }
+    }
 }
 
 
